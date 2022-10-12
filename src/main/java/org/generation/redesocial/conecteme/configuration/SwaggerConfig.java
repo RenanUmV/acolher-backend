@@ -42,19 +42,19 @@ public class SwaggerConfig {
 		
 		return new ApiInfoBuilder()
 
-			.title("API - RECONECT")
-			.description("Projeto API Spring - Reconect")
+			.title("API - Acolher")
+			.description("Projeto API Spring - Acolher")
 			.version("1.0.0")
 			.license("Apache License Version 2.0")
-			.licenseUrl("https://github.com/alysoncampos")
+			.licenseUrl("https://github.com/RenanUmV")
 			.contact(contact())
 			.build();
 		
 	}
 	private static Contact contact() {
-		return new Contact("Alyson Campos",
-				"https://github.com/alysoncampos",
-				"alyson.siqueiracampos@gmail.com");
+		return new Contact("Renan Vasconcelos",
+				"https://github.com/RenanUmV",
+				"renan.uchoa.m@gmail.com");
 	}
 	
 	private static List<Response> responseMessage(){
