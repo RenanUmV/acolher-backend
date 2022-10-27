@@ -1,25 +1,14 @@
 package org.generation.redesocial.conecteme.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_usuarios")
@@ -38,6 +27,13 @@ public class UsuarioModel {
 	@NotBlank(message = "O atributo Usuário é obrigatório")
 	@Email(message = "O atributo usuário deve ser um email válido")
 	private String usuario;
+
+	@ApiModelProperty(example = "(**) *****-****")
+	@NotBlank(message = "O atributo Usuário é obrigatório")
+	private String telefone;
+
+	@ApiModelProperty(example ="Estado onde reside exemplo: Pernambuco")
+	private String estado;
 	
 	@NotBlank(message = "O atributo Senha é obrigatório")
 	@Size(min = 8, message = "A senha deve ser no mínimo 8 caracteres.")
@@ -46,23 +42,20 @@ public class UsuarioModel {
 	private String foto;
 	
 	private String tipo;
-	
-	@Column(name = "dt_nascimento")
-	@JsonFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dataNascimento;
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
 	private List<PostagemModel> postagem = new ArrayList<>();
 	
-	public UsuarioModel (long id, String nome, String usuario, String senha, String tipo, LocalDate dataNascimento, String foto) {
+	public UsuarioModel (long id, String nome, String usuario, String senha, String tipo, String telefone, String estado, String foto) {
 		
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
+		this.telefone = telefone;
+		this.estado = estado;
 		this.senha = senha;
 		this.tipo = tipo;
-		this.dataNascimento = dataNascimento;
 		this.foto = foto;
 		
 	}
@@ -93,6 +86,22 @@ public class UsuarioModel {
 		this.usuario = usuario;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
@@ -115,14 +124,6 @@ public class UsuarioModel {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
 	}
 
 	public List<PostagemModel> getPostagem() {
